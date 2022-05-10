@@ -1,5 +1,6 @@
-import { ArrowLeft } from "phosphor-react"
 import { FormEvent, useState } from "react"
+import { ArrowLeft } from "phosphor-react"
+
 import { FeedbackType, feedbackTypes } from ".."
 import { CloseButton } from "../../CloseButton"
 import { ScreenshotButton } from "../ScreenshotButton"
@@ -7,11 +8,13 @@ import { ScreenshotButton } from "../ScreenshotButton"
 interface FeedbackContentStepProps {
   feedbackType: FeedbackType
   onFeedbackRestartRequested: () => void
+  onFeedbackSent: () => void
 }
 
 export const FeedbackContentStep = ({
   feedbackType,
   onFeedbackRestartRequested,
+  onFeedbackSent,
 }: FeedbackContentStepProps) => {
   const [screenshot, setScreenshot] = useState<string | null>(null)
   const [comment, setComment] = useState('')
@@ -26,6 +29,8 @@ export const FeedbackContentStep = ({
       screenshot,
       comment
     })
+
+    onFeedbackSent()
   }
 
   return (
@@ -50,7 +55,7 @@ export const FeedbackContentStep = ({
         <textarea
           value={comment}
           onChange={event => setComment(event.target.value)} 
-          className="min-w-[304px] w-full min-h-[112px] text-sm placeholder-zinc-400 text-zinc-100 border-zinc-600 bg-transparent rounded-md focus:border-brand-500 focus:ring-brand-500 focus:ring-1 focus:outline-none resize-none scrollbar scrollbar-thumb-zinc-700 scrollbar-track-transparent scrollbar-thin"
+          className="min-w-[304px] w-full min-h-[112px] text-sm placeholder-zinc-400 text-zinc-100 border-zinc-600 bg-transparent rounded-md focus:border-brand-500 focus:ring-brand-500 focus:ring-1 focus:outline-none resize-none scrollbar-thumb-zinc-700 scrollbar-track-transparent scrollbar-thin"
           placeholder="Is something not working right? We want to correct. Tell us in detail what's going on..."
         />
 
